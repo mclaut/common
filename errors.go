@@ -9,10 +9,10 @@ import (
 func RetErr(e error, p ...interface{}) error {
 	if e!=nil {
 		var s string
+		fc:=myCaller(3)
 		for _,j:=range p {
 			s+=fmt.Sprint(j)+"; "
 		}
-		fc:=myCaller(3)
 		err:=errors.New(fc+"()"+" {"+s+"} -> "+e.Error())
 		return err
 	}
