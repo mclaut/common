@@ -23,6 +23,7 @@ func EOL() string {
 	return ret
 }
 
+// get started file path
 func GetRunPath() (string, error) {
 	var dirAbsPath string
 	ex, err := os.Executable()
