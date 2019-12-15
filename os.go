@@ -1,20 +1,40 @@
 package common
 
-import "runtime"
+import (
+	"os"
+	"path/filepath"
+	"runtime"
+)
 
 func EOL() string {
 	var ret string
-	os:=runtime.GOOS
-	switch os {
+	osi := runtime.GOOS
+	switch osi {
 	case "linux":
-		ret="\n"
+		ret = "\n"
 	case "windows":
-		ret="\r\n"
+		ret = "\r\n"
 	case "macos":
-		ret="\r"
+		ret = "\r"
 	default:
-		ret="\n"
+		ret = "\n"
 	}
 
 	return ret
+}
+
+func GetRunPath() (string, error) {
+	var dirAbsPath string
+	ex, err := os.Executable()
+	if err == nil {
+		dirAbsPath = filepath.Dir(ex)
+		return dirAbsPath, err
+	}
+
+	exReal, err := filepath.EvalSymlinks(ex)
+	if err != nil {
+		return exReal, err
+	}
+	dirAbsPath = filepath.Dir(exReal)
+	return dirAbsPath, err
 }
