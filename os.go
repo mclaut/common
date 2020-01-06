@@ -1,6 +1,9 @@
 package common
 
 import (
+	"crypto/md5"
+	"encoding/hex"
+	"io"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -38,4 +41,21 @@ func GetRunPath() (string, error) {
 	}
 	dirAbsPath = filepath.Dir(exReal)
 	return dirAbsPath, err
+}
+
+func MD5sum(filePath string) (result string, err error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	hash := md5.New()
+	_, err = io.Copy(hash, file)
+	if err != nil {
+		return
+	}
+
+	result = hex.EncodeToString(hash.Sum(nil))
+	return
 }
