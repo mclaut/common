@@ -1,9 +1,9 @@
 package common
 
 import (
-	"runtime"
 	"errors"
 	"fmt"
+	"runtime"
 )
 
 func RetErr(e error, p ...interface{}) error {

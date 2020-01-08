@@ -59,3 +59,13 @@ func MD5sum(filePath string) (result string, err error) {
 	result = hex.EncodeToString(hash.Sum(nil))
 	return
 }
+
+func IsExistsFile(fileName string) bool {
+
+	if f, err := os.Stat(fileName); os.IsNotExist(err) {
+		return false
+	} else {
+		return f.IsDir()
+	}
+	return false
+}
