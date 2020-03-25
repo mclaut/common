@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func telnetCommand(addr, cmd string) (string, error) {
+func Telnet(addr, cmd string) (string, error) {
 	var answ string
 	// connect to unix socket
 	c, err := net.Dial("unix", addr)
